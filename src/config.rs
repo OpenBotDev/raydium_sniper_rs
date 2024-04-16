@@ -6,7 +6,6 @@ use std::str::FromStr;
 pub const WSS_URL: &str = "wss://api.mainnet-beta.solana.com";
 pub const RPC_URL: &str = "https://api.mainnet-beta.solana.com";
 
-
 pub struct Config {
     pub sender_keypair: Keypair,
 }

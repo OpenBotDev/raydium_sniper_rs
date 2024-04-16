@@ -1,7 +1,5 @@
 use regex::Regex;
-use solana_sdk::{
-    pubkey::Pubkey,
-};
+use solana_sdk::pubkey::Pubkey;
 
 pub fn find_log_entry(needle: &str, log_entries: &[String]) -> Option<String> {
     for entry in log_entries {
@@ -12,41 +10,38 @@ pub fn find_log_entry(needle: &str, log_entries: &[String]) -> Option<String> {
     None
 }
 
-
 pub fn fix_relaxed_json_in_lp_log_entry(relaxed_json: &str) -> String {
     let re = Regex::new(r#"([{,])\s*([a-zA-Z_][a-zA-Z0-9_]*)\s*:"#).unwrap();
     re.replace_all(relaxed_json, "$1\"$2\":").into_owned()
 }
 
-
 #[derive(Debug)]
 pub struct PoolInfo {
-   pub id: Pubkey,
-   pub base_mint: Pubkey,
-   pub quote_mint: Pubkey,
-   pub lp_mint: Pubkey,
-   pub  base_decimals: u8,
-   pub quote_decimals: u8,
-   pub lp_decimals: u8,
-   pub version: u8,
-   pub program_id: Pubkey,
-   pub authority: Pubkey,
-   pub open_orders: Pubkey,
-   pub target_orders: Pubkey,
-   pub  base_vault: Pubkey,
-   pub  quote_vault: Pubkey,
-   pub  withdraw_queue: Pubkey,
-   pub  lp_vault: Pubkey,
-   pub  market_version: u8,
-   pub  market_program_id: Pubkey,
-    pub  market_id: Pubkey,
-    pub  base_reserve: u64,
-    pub  quote_reserve: u64,
+    pub id: Pubkey,
+    pub base_mint: Pubkey,
+    pub quote_mint: Pubkey,
+    pub lp_mint: Pubkey,
+    pub base_decimals: u8,
+    pub quote_decimals: u8,
+    pub lp_decimals: u8,
+    pub version: u8,
+    pub program_id: Pubkey,
+    pub authority: Pubkey,
+    pub open_orders: Pubkey,
+    pub target_orders: Pubkey,
+    pub base_vault: Pubkey,
+    pub quote_vault: Pubkey,
+    pub withdraw_queue: Pubkey,
+    pub lp_vault: Pubkey,
+    pub market_version: u8,
+    pub market_program_id: Pubkey,
+    pub market_id: Pubkey,
+    pub base_reserve: u64,
+    pub quote_reserve: u64,
     pub lp_reserve: u64,
-    pub  open_time: u64,
+    pub open_time: u64,
 }
 impl PoolInfo {
-   
     pub fn new(
         id: Pubkey,
         base_mint: Pubkey,
@@ -98,13 +93,7 @@ impl PoolInfo {
             open_time,
         }
     }
-
-   
 }
-
-
-
-
 
 // pub fn find_instruction_by_program_id(instructions: &[Instruction], program_id: &str) -> Option<Instruction> {
 //     for instruction in instructions {

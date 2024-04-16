@@ -14,30 +14,29 @@ pub static MODEL_DATA_PUBKEY: Lazy<Pubkey> =
 pub static ASSOCIATED_TOKEN_PROGRAM_ID: Lazy<Pubkey> =
     Lazy::new(|| Pubkey::from_str("ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL").unwrap());
 
-
-
 #[derive(Debug)]
 pub struct LiquiditySwapFixedInInstructionParamsV4 {
     pool_keys: LiquidityPoolKeys,
     user_keys: UserKeys,
-    amount_in:  u64,
-    min_amount_out:  u64,
+    amount_in: u64,
+    min_amount_out: u64,
 }
 
-impl LiquiditySwapFixedInInstructionParamsV4  {
+impl LiquiditySwapFixedInInstructionParamsV4 {
     pub fn new(
         pool_keys: LiquidityPoolKeys,
-    user_keys: UserKeys,
-    amount_in:  u64,
-    min_amount_out:  u64) -> Self {
-        LiquiditySwapFixedInInstructionParamsV4{pool_keys,
-        user_keys,
-        amount_in,
-        min_amount_out}
+        user_keys: UserKeys,
+        amount_in: u64,
+        min_amount_out: u64,
+    ) -> Self {
+        LiquiditySwapFixedInInstructionParamsV4 {
+            pool_keys,
+            user_keys,
+            amount_in,
+            min_amount_out,
+        }
     }
-
 }
-
 
 #[derive(Debug, Clone)]
 pub struct LiquidityPoolKeys {
@@ -52,20 +51,20 @@ pub struct LiquidityPoolKeys {
     pub program_id: Pubkey,
     pub authority: Pubkey,
     pub open_orders: Pubkey,
-    pub    target_orders: Pubkey,
-    pub  base_vault: Pubkey,
-    pub    quote_vault: Pubkey,
-    pub   withdraw_queue: Pubkey,
-    pub  lp_vault: Pubkey,
-    pub   market_version: u8,
-    pub  market_program_id: Pubkey,
-    pub  market_id: Pubkey,
+    pub target_orders: Pubkey,
+    pub base_vault: Pubkey,
+    pub quote_vault: Pubkey,
+    pub withdraw_queue: Pubkey,
+    pub lp_vault: Pubkey,
+    pub market_version: u8,
+    pub market_program_id: Pubkey,
+    pub market_id: Pubkey,
     pub market_authority: Pubkey,
     pub market_base_vault: Pubkey,
     pub market_quote_vault: Pubkey,
     pub market_bids: Pubkey,
     pub market_asks: Pubkey,
-    pub    market_event_queue: Pubkey,
+    pub market_event_queue: Pubkey,
 }
 
 impl LiquidityPoolKeys {
@@ -95,7 +94,7 @@ impl LiquidityPoolKeys {
         market_bids: Pubkey,
         market_asks: Pubkey,
         market_event_queue: Pubkey,
-    )-> Self {
+    ) -> Self {
         LiquidityPoolKeys {
             id,
             base_mint,
@@ -123,23 +122,8 @@ impl LiquidityPoolKeys {
             market_asks,
             market_event_queue,
         }
-}}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
+}
 
 #[derive(Debug)]
 pub struct UserKeys {
@@ -149,17 +133,14 @@ pub struct UserKeys {
 }
 
 impl UserKeys {
-  pub fn  new(
-        token_account_in: Pubkey,
-        token_account_out: Pubkey,
-        owner: Pubkey,
-    ) -> Self {
-        UserKeys{token_account_in,
-        token_account_out,
-        owner,}
+    pub fn new(token_account_in: Pubkey, token_account_out: Pubkey, owner: Pubkey) -> Self {
+        UserKeys {
+            token_account_in,
+            token_account_out,
+            owner,
+        }
     }
 }
-
 
 #[derive(BorshSerialize, BorshDeserialize, Debug)]
 struct SwapInstructionData {
@@ -240,53 +221,48 @@ pub fn account_meta_readonly(pubkey: Pubkey, is_signer: bool) -> AccountMeta {
 
 #[derive(BorshSerialize, BorshDeserialize, Debug)]
 pub struct MarketStateLayoutV3 {
-    
-  pub  _padding: [u8; 13],
+    pub _padding: [u8; 13],
 
-  pub   own_address: Pubkey,
-  pub  vault_signer_nonce: u64,
+    pub own_address: Pubkey,
+    pub vault_signer_nonce: u64,
 
-  pub  base_mint: Pubkey,
-  pub  quote_mint: Pubkey,
+    pub base_mint: Pubkey,
+    pub quote_mint: Pubkey,
 
-  pub base_vault: Pubkey,
-  pub  base_deposits_total: u64,
-  pub  base_fees_accrued: u64,
+    pub base_vault: Pubkey,
+    pub base_deposits_total: u64,
+    pub base_fees_accrued: u64,
 
-  pub  quote_vault: Pubkey,
-  pub quote_deposits_total: u64,
-  pub quote_fees_accrued: u64,
+    pub quote_vault: Pubkey,
+    pub quote_deposits_total: u64,
+    pub quote_fees_accrued: u64,
 
-  pub quote_dust_threshold: u64,
+    pub quote_dust_threshold: u64,
 
-  pub request_queue: Pubkey,
-  pub  event_queue: Pubkey,
+    pub request_queue: Pubkey,
+    pub event_queue: Pubkey,
 
-  pub bids: Pubkey,
-  pub asks: Pubkey,
+    pub bids: Pubkey,
+    pub asks: Pubkey,
 
-  pub base_lot_size: u64,
-  pub  quote_lot_size: u64,
+    pub base_lot_size: u64,
+    pub quote_lot_size: u64,
 
-  pub fee_rate_bps: u64,
+    pub fee_rate_bps: u64,
 
-  pub   referrer_rebates_accrued: u64,
+    pub referrer_rebates_accrued: u64,
 
     _padding_end: [u8; 7],
 }
 
-pub fn get_associated_authority(
-    program_id: &Pubkey,
-    market_id: &Pubkey,
-) -> Result< Pubkey , String> {
-    let market_id_bytes = market_id.to_bytes(); 
-    let seeds = &[&market_id_bytes[..]]; 
+pub fn get_associated_authority(program_id: &Pubkey, market_id: &Pubkey) -> Result<Pubkey, String> {
+    let market_id_bytes = market_id.to_bytes();
+    let seeds = &[&market_id_bytes[..]];
 
     for nonce in 0..100u8 {
-        let nonce_bytes = [nonce]; 
-        let padding = [0u8; 7]; 
+        let nonce_bytes = [nonce];
+        let padding = [0u8; 7];
 
-        
         let seeds_with_nonce = [
             seeds[0],     // Market ID bytes
             &nonce_bytes, // Nonce bytes
